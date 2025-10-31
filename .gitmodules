@@ -1,0 +1,3 @@
+[submodule "packages/medi"]
+	path = packages/medi
+	url = git@github.com:mkueper/media-pickers.git
