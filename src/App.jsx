@@ -573,7 +573,7 @@ export default function App() {
               </div>
               <div className='kpi'>{segments.length} {segments.length === 1 ? 'SKEET' : 'SKEETS'}</div>
             </div>
-            {segments.length === 0 || (segments.length === 1 && segments[0].trim().length === 0) ? (
+            {segments.length === 0 ? (
               <p style={{ fontSize: 13, color: '#666' }}>(keine Segmente)</p>
             ) : (
               <div className='scrollbox scrollbar-preview'>
@@ -757,10 +757,15 @@ export default function App() {
         onClose={() => setGifPickerOpen(false)}
         maxBytes={MAX_BYTES}
         fetcher={async (endpoint, params) => {
-          if (hasProxy || endpoint === 'featured') {
-            const url = `/api/tenor/${endpoint}?${params.toString()}`
-            const res = await fetch(url)
-            return parseTenorResponse(res, 'Tenor Proxy')
+          let proxyError = null
+          if (hasProxy) {
+            try {
+              const url = `/api/tenor/${endpoint}?${params.toString()}`
+              const res = await fetch(url)
+              return await parseTenorResponse(res, 'Tenor Proxy')
+            } catch (err) {
+              proxyError = err
+            }
           }
           if (tenorKey) {
             const params2 = new URLSearchParams({
@@ -777,6 +782,7 @@ export default function App() {
             const res2 = await fetch(url2)
             return parseTenorResponse(res2, 'Tenor (Browser-Key)')
           }
+          if (proxyError) throw proxyError
           throw new Error('Tenor nicht erreichbar. Bitte Key oder Proxy konfigurieren.')
         }}
         onPick={async ({ id, downloadUrl }) => {

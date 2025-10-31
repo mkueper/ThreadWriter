@@ -1,0 +1,49 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Vite: npm run dev",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "name": "Frontend: Chrome Preview",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/src",
+      "runtimeArgs": [
+        "--auto-open-devtools-for-tabs"
+      ]
+    },
+    {
+      "name": "Tauri: npm run tauri:dev",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run tauri:dev",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "TAURI_DEVTOOLS": "true"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Vite: Start + Debug",
+      "configurations": [
+        "Vite: npm run dev",
+        "Frontend: Chrome Preview"
+      ]
+    }
+  ]
+}
