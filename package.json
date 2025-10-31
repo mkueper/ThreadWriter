@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "vitest run --pool=threads --poolOptions.threads.maxWorkers=1",
+    "test:watch": "vitest --pool=threads --poolOptions.threads.maxWorkers=1"
   },
   "dependencies": {
     "@atproto/api": "^0.13.10",

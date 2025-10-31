@@ -103,10 +103,10 @@ describe('handlePost flow', () => {
     await waitFor(() => {
       expect(textarea.value).toBe('')
     })
-    const emptyIndicator = await screen.findByText(
-      (_, node) => node?.textContent?.includes('(keine Segmente)'),
+    const emptyPreviews = await screen.findAllByText(
+      (_, node) => node?.textContent?.includes('(leer)'),
     )
-    expect(emptyIndicator).toBeInTheDocument()
+    expect(emptyPreviews.length).toBeGreaterThan(0)
     const client = __getLastClient()
     const postedTexts = client.agent.post.mock.calls.map(([payload]) => payload.text)
     expect(postedTexts[0]).toMatch(/\n\n1\/2$/)
@@ -124,7 +124,7 @@ describe('handlePost flow', () => {
     })
 
     render(<App />)
-    setSourceValue('A\n---\nB')
+    setSourceValue('A\n---\nB\n---\nC')
 
     const postButton = screen.getByRole('button', { name: /Posten/i })
     await act(async () => {
@@ -137,7 +137,7 @@ describe('handlePost flow', () => {
     expect(normalized).toMatch(/abgebrochen/)
 
     const textarea = screen.getByPlaceholderText(/Beispiel/i)
-    expect(textarea.value).toBe('A\n---\nB')
+    expect(textarea.value).toBe('A\n---\nB\n---\nC')
 
     const client = __getLastClient()
     expect(client.agent.post).toHaveBeenCalledTimes(2)
