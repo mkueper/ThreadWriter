@@ -2,7 +2,7 @@ export async function compressImage(file, {
   targetBytes = 900 * 1024,
   maxWidth = 2048,
   maxHeight = 2048,
-  preferType = 'image/webp',
+  preferType = 'image/webp'
 } = {}) {
   // Only process non-GIF raster images
   const srcType = (file.type || '').toLowerCase()
@@ -54,4 +54,3 @@ export async function compressImage(file, {
   const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.35))
   return { blob: blob || file, type: 'image/jpeg' }
 }
-

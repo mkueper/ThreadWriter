@@ -70,7 +70,7 @@ export default function App() {
   const MAX_BYTES = 8 * 1024 * 1024
   const UPLOAD_TARGET_BYTES = Number(import.meta.env.VITE_TW_UPLOAD_TARGET_BYTES || (900 * 1024))
   const UPLOAD_HEADROOM = Math.max(0.5, Math.min(1, Number(import.meta.env.VITE_TW_UPLOAD_HEADROOM || 0.97)))
-  const ALLOWED_MIMES = ['image/jpeg','image/png','image/webp','image/gif']
+  const ALLOWED_MIMES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
   const [gifPickerOpen, setGifPickerOpen] = useState(false)
   const [gifTargetIndex, setGifTargetIndex] = useState(null)
   const splitRef = useRef(null)
@@ -219,7 +219,6 @@ export default function App() {
 
   // Kein Tauri-Menü-Event-Handling notwendig
 
-  const EMOJI_SET = ['🙂','😂','🎉','❤️','👍','🔥','✨','🙏','🚀','🤖','📷','🧵','📝','📣','🗓️','⏰']
   const SEGMENT_SEPARATOR = '---'
 
   function insertEmoji(ch) {
@@ -304,7 +303,7 @@ export default function App() {
             const uploaded = []
             for (let m = 0; m < media.length; m++) {
               const item = media[m]
-              setStatus((s) => s.map((it, idx) => (idx === i ? { state: 'posting', info: `Medien hochladen ${m+1}/${media.length}` } : it)))
+              setStatus((s) => s.map((it, idx) => (idx === i ? { state: 'posting', info: `Medien hochladen ${m + 1}/${media.length}` } : it)))
               const file = item.file
               const isGif = (file.type || '').toLowerCase() === 'image/gif'
               let uploadBlob = file
@@ -478,7 +477,7 @@ export default function App() {
                 value={source}
                 onChange={(e) => setSource(e.target.value)}
                 onKeyDown={handleEditorKeyDown}
-                placeholder={"Beispiel:\nIntro...\n---\nWeiterer Skeet..."}
+                placeholder={'Beispiel:\nIntro...\n---\nWeiterer Skeet...'}
                 style={{ height: editorHeight, marginTop: 12 }}
               />
               {error ? (
@@ -600,7 +599,7 @@ export default function App() {
                     {(Array.isArray(pendingMedia[i]) ? pendingMedia[i] : []).map((item, idx) => (
                       <div key={idx} style={{ border: '1px solid #ddd', borderRadius: 8, padding: 6, width: 160 }}>
                         <div style={{ position: 'relative', height: 90, background: '#fafafa', borderRadius: 6, overflow: 'hidden', border: '1px solid #eee' }}>
-                          <img src={item.url} alt={item.alt || `Bild ${idx+1}`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                          <img src={item.url} alt={item.alt || `Bild ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                         </div>
                         <input
                           type="text"

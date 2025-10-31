@@ -20,7 +20,7 @@ export class BlueskyClient {
     for (let i = 0; i < texts.length; i++) {
       const post = await this.agent.post({
         text: texts[i],
-        reply: root && parent ? { root, parent } : undefined,
+        reply: root && parent ? { root, parent } : undefined
       })
       const ref = { uri: post.uri, cid: post.cid }
       if (!root) root = ref

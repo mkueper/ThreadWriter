@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import { act } from 'react'
 
 const { compressImageMock } = vi.hoisted(() => ({
-  compressImageMock: vi.fn(async (file) => ({ blob: file, type: file.type || 'image/jpeg' })),
+  compressImageMock: vi.fn(async (file) => ({ blob: file, type: file.type || 'image/jpeg' }))
 }))
 vi.mock('@kampagnen-bot/media-pickers', () => ({
   __esModule: true,
@@ -18,10 +18,10 @@ function createDefaultClient() {
   const login = vi.fn(() => Promise.resolve())
   const post = vi.fn(async ({ text }) => ({
     uri: `at://mock/${text.slice(0, 8)}${post.mock.calls.length}`,
-    cid: `cid-${post.mock.calls.length}`,
+    cid: `cid-${post.mock.calls.length}`
   }))
   const uploadBlob = vi.fn(async (blob) => ({
-    data: { blob: { cid: `blob-${blob?.size || 0}` } },
+    data: { blob: { cid: `blob-${blob?.size || 0}` } }
   }))
   return { login, agent: { post, uploadBlob } }
 }
@@ -49,7 +49,7 @@ vi.mock('./lib/bskyClient.js', () => {
     BlueskyClient,
     __setMockClientFactory,
     __resetMockClientFactory,
-    __getLastClient,
+    __getLastClient
   }
 })
 
@@ -104,7 +104,7 @@ describe('handlePost flow', () => {
       expect(textarea.value).toBe('')
     })
     const emptyPreviews = await screen.findAllByText(
-      (_, node) => node?.textContent?.includes('(leer)'),
+      (_, node) => node?.textContent?.includes('(leer)')
     )
     expect(emptyPreviews.length).toBeGreaterThan(0)
     const client = __getLastClient()
@@ -150,7 +150,7 @@ describe('handlePost flow', () => {
     __setMockClientFactory(() => {
       const client = createDefaultClient()
       client.agent.uploadBlob = vi.fn(async () => ({
-        data: { blob: { cid: 'blob-123', mimeType: 'image/png' } },
+        data: { blob: { cid: 'blob-123', mimeType: 'image/png' } }
       }))
       client.agent.post = vi.fn(async () => ({ uri: 'at://ok', cid: 'cid-ok' }))
       return client
@@ -168,7 +168,7 @@ describe('handlePost flow', () => {
     const file = new File(['dummy'], 'bild.png', { type: 'image/png' })
     await act(async () => {
       fireEvent.change(fileInput, {
-        target: { files: [file] },
+        target: { files: [file] }
       })
     })
 

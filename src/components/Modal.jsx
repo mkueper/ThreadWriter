@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Modal({ open, onClose, title, actions, children, contentWidth }) {
   if (!open) return null
   return (
@@ -11,7 +9,7 @@ export default function Modal({ open, onClose, title, actions, children, content
           maxHeight: '80vh',
           display: 'grid',
           gridTemplateRows: 'auto 1fr auto',
-          padding: 0,
+          padding: 0
         }}
       >
         <div style={{ padding: 10, borderBottom: '1px solid hsl(var(--border))', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
